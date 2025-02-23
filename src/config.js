@@ -1,9 +1,9 @@
 const config = {
   development: {
-    apiUrl: 'http://localhost:5000/api'
+    apiUrl: 'https://family-expense-tracker-backend.onrender.com'
   },
   production: {
-    apiUrl: process.env.REACT_APP_API_URL || 'https://your-backend-url/api'
+    apiUrl: process.env.REACT_APP_API_URL || 'https://family-expense-tracker-backend.onrender.com'
   }
 };
 
