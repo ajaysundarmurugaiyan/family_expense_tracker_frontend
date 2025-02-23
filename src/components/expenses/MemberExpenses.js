@@ -63,7 +63,7 @@ const MemberExpenses = () => {
   const fetchFamilyDetails = async () => {
     try {
       const token = localStorage.getItem('token');
-      const response = await axios.get(`http://localhost:5000/api/family/${familyId}`, {
+      const response = await axios.get(`https://family-expense-tracker-backend.onrender.com/api/family/${familyId}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
 
@@ -85,7 +85,7 @@ const MemberExpenses = () => {
 
       const token = localStorage.getItem('token');
       await axios.post(
-        `http://localhost:5000/api/family/${familyId}/members/${memberId}/expenses`,
+        `https://family-expense-tracker-backend.onrender.com/api/family/${familyId}/members/${memberId}/expenses`,
         expenseData,
         { headers: { Authorization: `Bearer ${token}` } }
       );
@@ -106,7 +106,7 @@ const MemberExpenses = () => {
     try {
       const token = localStorage.getItem('token');
       await axios.delete(
-        `http://localhost:5000/api/family/${familyId}/members/${memberId}/expenses/${expenseId}`,
+        `https://family-expense-tracker-backend.onrender.com/api/family/${familyId}/members/${memberId}/expenses/${expenseId}`,
         { headers: { Authorization: `Bearer ${token}` } }
       );
       toast.success('Expense deleted successfully!');

@@ -97,7 +97,7 @@ const Dashboard = () => {
         return;
       }
 
-      const response = await axios.get(`http://localhost:5000/api/family/${familyData.id}`, {
+      const response = await axios.get(`https://family-expense-tracker-backend.onrender.com/api/family/${familyData.id}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       setFamily(response.data);
@@ -126,7 +126,7 @@ const Dashboard = () => {
 
       const token = localStorage.getItem('token');
       await axios.post(
-        `http://localhost:5000/api/family/${family.id}/members`,
+        `https://family-expense-tracker-backend.onrender.com/api/family/${family.id}/members`,
         memberData,
         { headers: { Authorization: `Bearer ${token}` } }
       );
@@ -148,7 +148,7 @@ const Dashboard = () => {
 
       const token = localStorage.getItem('token');
       await axios.post(
-        `http://localhost:5000/api/family/${family.id}/members/${selectedMember}/expenses`,
+        `https://family-expense-tracker-backend.onrender.com/api/family/${family.id}/members/${selectedMember}/expenses`,
         expenseData,
         { headers: { Authorization: `Bearer ${token}` } }
       );
@@ -167,7 +167,7 @@ const Dashboard = () => {
       const familyData = JSON.parse(localStorage.getItem('family'));
       
       const response = await axios.delete(
-        `http://localhost:5000/api/family/${familyData.id}/members/${memberId}`,
+        `https://family-expense-tracker-backend.onrender.com/api/family/${familyData.id}/members/${memberId}`,
         { 
           headers: { 
             Authorization: `Bearer ${token}`
@@ -196,7 +196,7 @@ const Dashboard = () => {
     try {
       const token = localStorage.getItem('token');
       await axios.delete(
-        `http://localhost:5000/api/family/${family.id}/members/${memberId}/expenses/${expenseId}`,
+        `https://family-expense-tracker-backend.onrender.com/api/family/${family.id}/members/${memberId}/expenses/${expenseId}`,
         { headers: { Authorization: `Bearer ${token}` } }
       );
       toast.success('Expense deleted successfully!');
@@ -244,7 +244,7 @@ const Dashboard = () => {
       const familyData = JSON.parse(localStorage.getItem('family'));
 
       await axios.put(
-        `http://localhost:5000/api/family/${familyData.id}/members/${editMemberData.id}`,
+        `https://family-expense-tracker-backend.onrender.com/api/family/${familyData.id}/members/${editMemberData.id}`,
         {
           name: editMemberData.name,
           isEarning: editMemberData.isEarning,

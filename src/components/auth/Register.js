@@ -55,7 +55,7 @@ const Register = () => {
 
       // Register request
       const { confirmPassword, ...registerData } = formData;
-      const response = await axios.post('http://localhost:5000/api/auth/register', registerData);
+      const response = await axios.post('https://family-expense-tracker-backend.onrender.com/api/auth/register', registerData);
       
       if (response.data.token && response.data.family) {
         // Save token and family data
