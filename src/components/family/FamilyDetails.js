@@ -29,12 +29,13 @@ const FamilyDetails = () => {
   const navigate = useNavigate();
   const [family, setFamily] = useState(null);
   const [openDialog, setOpenDialog] = useState(false);
+  const [isButtonDisabled, setIsButtonDisabled] = useState(false);
+  const [isUpdated, setIsUpdated] = useState(false);
   const [memberData, setMemberData] = useState({
     name: '',
     isEarning: false,
     salary: 0,
   });
-  const [isAddingMember, setIsAddingMember] = useState(false);  // Track loading state
 
   useEffect(() => {
     fetchFamilyDetails();
@@ -53,7 +54,6 @@ const FamilyDetails = () => {
   };
 
   const handleAddMember = async () => {
-    setIsAddingMember(true);  // Disable the button
     try {
       const token = localStorage.getItem('token');
       await axios.post(
@@ -67,8 +67,6 @@ const FamilyDetails = () => {
       fetchFamilyDetails();
     } catch (error) {
       toast.error('Error adding member');
-    } finally {
-      setIsAddingMember(false);  // Re-enable the button after the request completes
     }
   };
 
@@ -84,6 +82,15 @@ const FamilyDetails = () => {
     } catch (error) {
       toast.error('Error deleting member');
     }
+  };
+
+  const handleButtonClick = () => {
+    setIsButtonDisabled(true);
+    setTimeout(() => {
+      // Assuming your update logic happens here
+      setIsUpdated(true); // Mark the update as done
+      setIsButtonDisabled(false); // Enable the button after update
+    }, 5000); // 2 seconds timeout for example
   };
 
   if (!family) {
@@ -217,12 +224,15 @@ const FamilyDetails = () => {
           <DialogActions>
             <Button onClick={() => setOpenDialog(false)}>Cancel</Button>
             <Button
-              onClick={handleAddMember}
-              variant="contained"
-              disabled={isAddingMember} // Disable button when adding
+              onClick={() => {
+                handleButtonClick();  // This will disable the button and handle the update
+                handleAddMember();    // This will handle adding the member
+              }}
+              disabled={isButtonDisabled}
             >
-              {isAddingMember ? 'Adding...' : 'Add'}
+              {isButtonDisabled ? 'Adding...' : 'Add'}
             </Button>
+
           </DialogActions>
         </Dialog>
       </Container>
@@ -230,4 +240,4 @@ const FamilyDetails = () => {
   );
 };
 
-export default FamilyDetails;
+export default FamilyDetails; 
