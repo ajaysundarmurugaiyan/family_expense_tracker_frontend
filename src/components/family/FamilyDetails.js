@@ -34,6 +34,7 @@ const FamilyDetails = () => {
     isEarning: false,
     salary: 0,
   });
+  const [isAddingMember, setIsAddingMember] = useState(false);  // Track loading state
 
   useEffect(() => {
     fetchFamilyDetails();
@@ -52,6 +53,7 @@ const FamilyDetails = () => {
   };
 
   const handleAddMember = async () => {
+    setIsAddingMember(true);  // Disable the button
     try {
       const token = localStorage.getItem('token');
       await axios.post(
@@ -65,6 +67,8 @@ const FamilyDetails = () => {
       fetchFamilyDetails();
     } catch (error) {
       toast.error('Error adding member');
+    } finally {
+      setIsAddingMember(false);  // Re-enable the button after the request completes
     }
   };
 
@@ -212,8 +216,12 @@ const FamilyDetails = () => {
           </DialogContent>
           <DialogActions>
             <Button onClick={() => setOpenDialog(false)}>Cancel</Button>
-            <Button onClick={handleAddMember} variant="contained">
-              Add
+            <Button
+              onClick={handleAddMember}
+              variant="contained"
+              disabled={isAddingMember} // Disable button when adding
+            >
+              {isAddingMember ? 'Adding...' : 'Add'}
             </Button>
           </DialogActions>
         </Dialog>
@@ -222,4 +230,4 @@ const FamilyDetails = () => {
   );
 };
 
-export default FamilyDetails; 
+export default FamilyDetails;
